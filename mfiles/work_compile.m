@@ -24,39 +24,39 @@ A_Tou = NaN(6,9);
 A_n = NaN(6,9);
 
 % Treatment code
-treatmentA = [ 2,1,1;  2,1,2;  2,1,2, ;  1,1,1; 1, 1,2; 1,1,3;  2,1,1;  2,2,1;  2,3,1] ;% column: [exp, sp1, sp2]
+treatmentA = [ 2,1,1;  2,1,2;  2,1,3, ;  1,1,1; 1, 1,2; 1,1,3;  2,1,1;  2,2,1;  2,3,1] ;% column: [exp, sp1, sp2]
 %% Grab data and filling out data sheet
 for b = 1:6 % block
-    for tr = 1:9 % treatment
+        for tr = 1:9 % treatment
         % Find data row (as indices) for before and after experiment
-            if treatmentA (tr,1) == 1 % alpha experment
-            D1 = 1 ; D2 =7;
-            else
-                    if tr>6% beta experiment
-                       D1 = 7 ; D2 = 15;
-                    else
-                          D1 = 1 ; D2 =7; % low density control    
-                    end
-            end
-            ind1 = find( ismember(data(:,3:5),treatmentA(tr,:),'rows') & data(:,2)==b & data(:,1)==D1);% before data
-            ind2 = find( ismember(data(:,3:5),treatmentA(tr,:),'rows') & data(:,2)==b & data(:,1)==D2);% after data
+                if treatmentA (tr,1) == 1 % alpha experment; concurrent interaction
+                        D1 = 1 ; D2 =7;
+                else
+                        if tr > 6 % beta experiment; delayed interaction
+                                D1 = 7 ; D2 = 15;
+                        else
+                                D1 = 1 ; D2 =7; % low density control    
+                        end
+                end
+                ind1 = find( ismember(data(:,3:5),treatmentA(tr,:),'rows') & data(:,2)==b & data(:,1)==D1);% before data
+                ind2 = find( ismember(data(:,3:5),treatmentA(tr,:),'rows') & data(:,2)==b & data(:,1)==D2);% after data
         
-        if isempty(ind1)+isempty(ind2)==0
-        % calculation
-        temp1 = sort(data(ind1,8:17)); % chl data sorted
-        temp2 = sort(data(ind2,8:17));
-        A_chl(b,tr,1) = mean(temp2)-mean(temp1);
-        A_chl(b,tr,2) = mean(inlier(temp2))-mean(inlier(temp1));% remove two extream data
-        A_L(b,tr,1) = data(ind2,6)-data(ind1,6); % change in number of leaves
-        A_L(b,tr,2) = A_L(b,tr,1)/data(ind1,6); % change of number of leaves in ratio
-        A_Tou(b,tr) = mean(data(ind2,18:20)) - mean(data(ind1,18:20)); % change in mean
-        if tr==4
-                 A_n(b,tr) = (data(ind2,23)-60)/60; % change of number in ratio
-        else
-                 A_n(b,tr) = (data(ind2,23)-30)/30; % change of number in ratio
+                if isempty(ind1)+isempty(ind2)==0
+                    % calculation
+                        temp1 = sort(data(ind1,8:17)); % chl data sorted
+                        temp2 = sort(data(ind2,8:17));
+                        A_chl(b,tr,1) = mean(temp2)-mean(temp1);
+                        A_chl(b,tr,2) = mean(inlier(temp2))-mean(inlier(temp1));% remove two extream data
+                        A_L(b,tr,1) = data(ind2,6)-data(ind1,6); % change in number of leaves
+                        A_L(b,tr,2) = A_L(b,tr,1)/data(ind1,6); % change of number of leaves in ratio
+                        A_Tou(b,tr) = mean(data(ind2,18:20)) - mean(data(ind1,18:20)); % change in mean
+                        if tr==4
+                                A_n(b,tr) = (data(ind2,23)-60)/60; % change of number in ratio
+                        else
+                                A_n(b,tr) = (data(ind2,23)-30)/30; % change of number in ratio
+                        end
+                end
         end
-    end
-    end
 end
 %% Compile data by each responder: Paria
 % data sheets

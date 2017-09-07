@@ -11,7 +11,7 @@ end
 
 % PC; home
 if strncmp(strout, 'wlin_pc',5)
-        cd 'C:\Users\Wei-Ting\Dropbox\PhD_projects\herbivore_SG_Iva'
+        cd  'C:\Users\Wei-Ting\Dropbox\PhD_projects\herbivore_SG_Iva\mfiles'
         addpath 'C:\Users\Wei-Ting\Dropbox\DataCoding\utility_wtl\mfiles'
 end
 
