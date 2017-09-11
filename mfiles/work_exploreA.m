@@ -14,6 +14,7 @@ TabA= readtable('./data/TabA.txt','Delimiter',' ');
  % block residual
  [p,tbl,stats1] = anovan(TabA.dAphid,{TabA.blc})
  blcresidA = stats1. resid;
+ %%
  
  [p,tbl,stats2] = anovan(blcresidA(TabA.compete==0),{TabA.pretreat(TabA.compete==0)})
      C= multcompare(stats2,'Dimension',[1],'CType','hsd')

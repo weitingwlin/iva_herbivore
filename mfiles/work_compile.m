@@ -23,8 +23,10 @@ A_L = NaN(6,9,2); % change in number
 A_Tou = NaN(6,9);
 A_n = NaN(6,9);
 
-% Treatment code
-treatmentA = [ 2,1,1;  2,1,2;  2,1,3, ;  1,1,1; 1, 1,2; 1,1,3;  2,1,1;  2,2,1;  2,3,1] ;% column: [exp, sp1, sp2]
+% Treatment code; column: [exp, sp1, sp2]
+treatmentA = [ 2,1,1;  2,1,2;  2,1,3, ; ... % low density control  (day 7 measurements)
+                       1,1,1;   1, 1,2; 1,1,3; ...   % alpha
+                       2,1,1;  2,2,1;  2,3,1] ;    % beta
 %% Grab data and filling out data sheet
 for b = 1:6 % block
         for tr = 1:9 % treatment
@@ -41,7 +43,7 @@ for b = 1:6 % block
                 ind1 = find( ismember(data(:,3:5),treatmentA(tr,:),'rows') & data(:,2)==b & data(:,1)==D1);% before data
                 ind2 = find( ismember(data(:,3:5),treatmentA(tr,:),'rows') & data(:,2)==b & data(:,1)==D2);% after data
         
-                if isempty(ind1)+isempty(ind2)==0
+                if ~any([isempty(ind1) isempty(ind2)])
                     % calculation
                         temp1 = sort(data(ind1,8:17)); % chl data sorted
                         temp2 = sort(data(ind2,8:17));
@@ -50,7 +52,7 @@ for b = 1:6 % block
                         A_L(b,tr,1) = data(ind2,6)-data(ind1,6); % change in number of leaves
                         A_L(b,tr,2) = A_L(b,tr,1)/data(ind1,6); % change of number of leaves in ratio
                         A_Tou(b,tr) = mean(data(ind2,18:20)) - mean(data(ind1,18:20)); % change in mean
-                        if tr==4
+                        if tr == 4
                                 A_n(b,tr) = (data(ind2,23)-60)/60; % change of number in ratio
                         else
                                 A_n(b,tr) = (data(ind2,23)-30)/30; % change of number in ratio
@@ -66,7 +68,9 @@ P_Tou = NaN(6,9); % toughness
 P_w = NaN(6,9); % weight change
 P_d = NaN(6,9); % damage 
 % Treatment code
-treatmentP =[  2,2,1;  2,2,2;  2,2,3; 1,1,2; 1, 2,2; 1,2,3;  2,1,2;  2,2,2;  2,3,2] % column: [exp, sp1, sp2]
+treatmentP =[  2,2,1;  2,2,2;  2,2,3; ...
+                       1,1,2; 1, 2,2; 1,2,3; ...
+                       2,1,2;  2,2,2;  2,3,2] ;% column: [exp, sp1, sp2]
 %% Grab data and filling out data sheet
 for b = 1:6 % block
     for tr = 1:9 % treatment
@@ -85,7 +89,8 @@ for b = 1:6 % block
             indB = find( ismember(data_bugs(:,2:4),treatmentP(tr,:),'rows') & data_bugs(:,1) == b); % index for the bug data
             indBid =[repmat(treatmentP(tr,2),1,2)  repmat(treatmentP(tr,3),1, 2)]; % id of bugs in data_bugs(indB,5:8) and
                                                                                                                     %                   data_bugs(indB,9:12)
-        if isempty(ind1) + isempty(ind2) == 0 % if both before and after data exist, calculate result, otherwise, keep NaN
+        if  ~any([isempty(ind1) isempty(ind2)]) 
+        % if both before and after data exist, calculate result, otherwise, keep NaN
         % calculation
             temp1 = sort(data(ind1,8:17)); % chl data sorted
             temp2 = sort(data(ind2,8:17));
@@ -121,7 +126,9 @@ H_Tou = NaN(6,9); % toughness
 H_w = NaN(6,9); % weight change
 H_d = NaN(6,9); % damage 
 % Treatment code
-treatmentH = [ 2,3,1;  2,3,2;  2,3,3; 1,1,3; 1, 2,3; 1,3,3;  2,1,3;  2,2,3;  2,3,3] % column: [exp, sp1, sp2]
+treatmentH = [ 2,3,1;  2,3,2;  2,3,3; ...
+                       1,1,3; 1, 2,3; 1,3,3;  ...
+                       2,1,3;  2,2,3;  2,3,3]; % column: [exp, sp1, sp2]
 %% Grab data and filling out data sheet
 for b = 1:6 % block
     for tr = 1:9 % treatment
@@ -129,7 +136,7 @@ for b = 1:6 % block
             if treatmentH(tr,1) == 1 % alpha experment
             D1 = 1 ; D2 =7;  
             else % beta experiment
-             if tr>6% beta experiment
+                    if tr>6% beta experiment
                        D1 = 7 ; D2 = 15;
                     else
                           D1 = 1 ; D2 =7; % low density control    
@@ -140,7 +147,8 @@ for b = 1:6 % block
             indB = find( ismember(data_bugs(:,2:4),treatmentH(tr,:),'rows') & data_bugs(:,1) == b); % index for the bug data
             indBid =[repmat(treatmentH(tr,2),1,2)  repmat(treatmentH(tr,3),1, 2)]; % id of bugs in data_bugs(indB,5:8) and
                                                                                                                     %                   data_bugs(indB,9:12)
-        if isempty(ind1) + isempty(ind2) == 0 % if both before and after data exist, calculate result, otherwise, keep NaN
+        if  ~any([isempty(ind1) isempty(ind2)]) 
+            % if both before and after data exist, calculate result, otherwise, keep NaN
         % calculation
             temp1 = sort(data(ind1,8:17)); % chl data sorted
             temp2 = sort(data(ind2,8:17));
@@ -149,14 +157,15 @@ for b = 1:6 % block
         H_L(b,tr,1) = data(ind2,6)-data(ind1,6); % change in number of leaves
         H_L(b,tr,2) = P_L(b,tr,1)/data(ind1,6); % change of number of leaves in ratio
         H_Tou(b,tr) = mean(data(ind2,18:20)) - mean(data(ind1,18:20)); % change in mean
-            temp3 = data_bugs(indB,5:8); % bug weight data "before"
+            temp3 = data_bugs(indB, 5:8); % bug weight data "before"
             temp31 = temp3; temp31(indBid~=3)=NaN;temp31(temp3 == 99)=NaN; 
-                                  % all and only hesperotettix data, no missing value
-            temp4 = data_bugs(indB,9:12); % bug weight data "after"
+                                  % all and only hesperotettix data, 
+                                  % no missing value; 99:code for dead insect       
+            temp4 = data_bugs(indB, 9:12); % bug weight data "after"
             temp41 = temp4;temp41(indBid~=3)=NaN; temp41(temp4 == 99)=NaN;
                                   
         if  ~isempty(find(~isnan(temp41-temp31)))
-        H_w(b,tr) = (nanmean((temp41-temp31)./temp31));
+                H_w(b,tr) = (nanmean((temp41-temp31)./temp31));
         end
         % damage
          dmg1 = data(ind1,22); if (dmg1 == 999), dmg1 = 0;  end % initially without damage data

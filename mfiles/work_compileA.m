@@ -31,7 +31,7 @@ mdamage = NaN(54,1); % mean damage by competitor
 mw = NaN(54,1); % mean weight of competitor
 
 % Treatment code
-    treatmentA =[ 2,1,1;  2,1,2;  2,1,3, ;  1,1,1; 1, 1,2; 1,1,3;  2,1,1;  2,2,1;  2,3,1] % column: [exp, sp1, sp2]
+    treatmentA =[ 2,1,1;  2,1,2;  2,1,3, ;  1,1,1; 1, 1,2; 1,1,3;  2,1,1;  2,2,1;  2,3,1]; % column: [exp, sp1, sp2]
 %% Grab data and filling out data sheet
 for b = 1:6 % block
     for tr = 1:9 % treatment
@@ -102,7 +102,7 @@ for b = 1:6 % block
     end
 end
 %% make table
-           TabAphid = table(blc,pretreat, compete, L0, chl0, chlin0, tou0, mdamage,mw,dAphid);
+           TabAphid = table(blc, pretreat, compete, L0, chl0, chlin0, tou0, mdamage,mw,dAphid);
             Y = nanzscore(log(TabAphid.dAphid+2)); % to achive normality, see "test normality" section
             tabY = table(Y);
     TabA = [TabAphid tabY];
