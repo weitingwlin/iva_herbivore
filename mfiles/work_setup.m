@@ -13,14 +13,8 @@ end
 if strncmp(strout, 'wlin_pc',5)
         cd  'C:\Users\Wei-Ting\Dropbox\PhD_projects\herbivore_SG_Iva\mfiles'
         addpath 'C:\Users\Wei-Ting\Dropbox\DataCoding\utility_wtl\mfiles'
+        rdatapath =  'C:\Users\Wei-Ting\Dropbox\PhD_projects\herbivore_SG_Iva\Rfiles\data';
 end
 
-% Lab; ASUS laptop
-if strncmp(strout, 'ASUS-PC',5)
-        cd 'C:\Users\ASUS\Dropbox\PhD_projects\herbivore_SG_Iva'
-        addpath 'C:\Users\ASUS\Dropbox\DataCoding\utility_wtl\mfiles'
-end
-% cd 'C:\Users\ASUS\Dropbox\PhD_projects\Iva_field_sample\sample_2014'
-% addpath 'C:\Users\ASUS\Dropbox\DataCoding\utility_wtl\mfiles'
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 clear stt strout
