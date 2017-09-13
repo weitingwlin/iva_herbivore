@@ -1,0 +1,67 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Load data
+
+```{r}
+source('script_loaddata.R')
+```
+
+Use SEM library
+
+```{r}
+library(sem)
+library(polycor)
+```
+
+correlation matrix
+
+```{r}
+subdata <- data[c('pc1', 'Area','Noon_Shade', 'Distance_to_Nearest','Ajun', 'Pjun', 'Hjun')]
+covdata <- cov(subdata)
+```
+
+
+read model
+
+```{r}
+model2A <- specifyModel(file="./model/mod2A.txt", endog.variances=TRUE)
+model2B <- specifyModel(file="./model/mod2B.txt", endog.variances=TRUE)
+model2C <- specifyModel(file="./model/mod2C.txt", endog.variances=TRUE)
+model2D <- specifyModel(file="./model/mod2D.txt", endog.variances=TRUE)
+model2E <- specifyModel(file="./model/mod2E.txt", endog.variances=TRUE)
+model2F <- specifyModel(file="./model/mod2F.txt", endog.variances=TRUE)
+```
+
+```{r}
+semHerb <- sem(model2B, covdata, N=38, data)
+
+summary(semHerb)
+temp<-summary(semHerb)
+temp$AIC
+#temp$BIC
+```
+
+Using AIC, model B or D are selected as the best model without species interaction
+
+## Include july data
+
+```{r}
+subdata <- data[c('pc1', 'Area','Noon_Shade', 'Distance_to_Nearest','Ajun', 'Pjun', 'Hjun'
+                  ,'Ajul', 'Pjul', 'Hjul')]
+covdata <- cov(subdata)
+```
+
+
+```{r}
+model3 <- specifyModel(file="./model/mod3.txt", endog.variances=TRUE)
+```
+
+```{r}
+semHerb <- sem(model3, covdata, N=38, data)
+
+summary(semHerb)
+```
+

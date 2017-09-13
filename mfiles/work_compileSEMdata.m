@@ -15,10 +15,22 @@
     [coeff, score,latent] = pca(M5(:, 7:10));
     pc1 = score(:, 1);
 %% write to table
-    tbl = array2table([M5(:,[3 5 6])  pc1], 'variablenames', {M3varname{[3 5 6]}, 'pc1'});
+    tblP = array2table([M5(:,[3 5 6])  pc1], 'variablenames', {M3varname{[3 5 6]}, 'pc1'});
 %%
     clear T2 M4 M3 tnames
 %%
-    writetable(tbl, [ rdatapath '/Env.csv']); % taxa data, by plant (sample, beat)
+    writetable(tblP, [ rdatapath '/Env.csv']); % taxa data, by plant (sample, beat)
 %%
 script_compilefielddata
+%%
+Aall = mean(matA, 2);
+Pall = mean(matP, 2);
+Hall = mean(matH, 2);
+Ajun = mean(matA(:,1:9), 2);
+Ajul = mean(matA(:,11:end), 2);
+Pjun = mean(matP(:,1:9), 2);
+Pjul = mean(matP(:,11:end), 2);
+Hjun = mean(matH(:,1:9), 2);
+Hjul = mean(matH(:,11:end), 2);
+tblAPH = table(Aall,Pall, Hall, Ajun, Ajul, Pjun, Pjul, Hjun, Hjul);
+writetable(tblAPH, [ rdatapath '/APH.csv']); % taxa data, by plant (sample, beat)

@@ -24,9 +24,9 @@ Htreatcat = categorical(Hval, valset, catnames);
  Pblockcat = categorical(TabP.blc);
  Hblockcat = categorical(TabH.blc);
 %% The effect of block
- [pA,tblA,statsA] = anovan(TabA.dAphid,{ Ablockcat , Atreatcat}, 'model','interaction');
- [pP,tblP,statsP] = anovan(TabP.ddamage,{ Pblockcat , Ptreatcat}, 'model','interaction');
- [pH,tblH,statsH] = anovan(TabH.ddamage,{ Hblockcat , Htreatcat}, 'model','interaction');
+ [pA,tblA,statsA] = anovan(TabA.dAphid,{ Ablockcat , Atreatcat});
+ [pP,tblP,statsP] = anovan(TabP.ddamage,{ Pblockcat , Ptreatcat});
+ [pH,tblH,statsH] = anovan(TabH.ddamage,{ Hblockcat , Htreatcat});
 %% Save
 xlswrite('anova_A.xlsx', tblA);
 xlswrite('anova_P.xlsx', tblP);

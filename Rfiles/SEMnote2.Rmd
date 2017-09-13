@@ -1,0 +1,43 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Load data
+
+```{r}
+rm(list = ls())
+source('script_loaddata.R')
+```
+
+Use SEM library
+
+```{r}
+library(sem)
+library(polycor)
+```
+
+correlation matrix
+
+```{r}
+subdata <- data[c('pc1', 'Area','Noon_Shade', 'Distance_to_Nearest','Aall', 'Pall', 'Hall')]
+covdata <- cov(subdata)
+```
+
+
+model and SEM 
+
+```{r}
+model0D <- specifyModel(file="./model/mod0D.txt", endog.variances=TRUE)
+semHerb <- sem(model0D, covdata, N=38, data)
+
+summary(semHerb)
+#temp<-summary(semHerb)
+#$AIC
+#temp$BIC
+```
+
+
+
+
+
