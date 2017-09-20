@@ -1,7 +1,7 @@
 
+Aall -> Hall, lam13, NA
 
-
-Pall -> Hall, lam23, NA
+Hall -> Pall, lam32, NA
 
 pc1 -> Aall, lam4A, NA
 

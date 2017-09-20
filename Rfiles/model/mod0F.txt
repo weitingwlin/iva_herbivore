@@ -11,6 +11,11 @@ Noon_Shade -> Aall, lam7A, NA
 Noon_Shade -> Pall, lam7P, NA
 
 
+
+
+
+
+
 Area <-> Noon_Shade, theta1, NA
 Distance_to_Nearest <-> pc1, theta2, NA
 Noon_Shade <-> pc1 , theta3, NA

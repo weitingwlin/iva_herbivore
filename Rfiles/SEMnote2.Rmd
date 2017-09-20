@@ -37,7 +37,36 @@ summary(semHerb)
 #temp$BIC
 ```
 
+```{r}
+spp <- data[c('Aall', 'Pall', 'Hall')]
+cor(spp)
+```
 
+## reverse the H --> P link
 
+```{r}
+model0E <- specifyModel(file="./model/mod0E.txt", endog.variances=TRUE)
+semHerb <- sem(model0E, covdata, N=38, data)
+
+summary(semHerb)
+```
+
+## model of no species interaction
+
+```{r}
+model0F <- specifyModel(file="./model/mod0F.txt", endog.variances=TRUE)
+semHerb <- sem(model0F, covdata, N=38, data)
+
+summary(semHerb)
+```
+
+# force a A --> H link
+
+```{r}
+model0G <- specifyModel(file="./model/mod0G.txt", endog.variances=TRUE)
+semHerb <- sem(model0G, covdata, N=38, data)
+
+summary(semHerb)
+```
 
 

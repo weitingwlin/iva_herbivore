@@ -1,0 +1,58 @@
+---
+title: "R Notebook"
+output:
+  md_notebook: default
+  html_notebook: default
+---
+
+## Load data and package
+
+
+```{r}
+rm(list = ls())
+source('script_loaddata.R')
+
+library(sem)
+library(polycor)
+```
+
+### printing covariance matrix for SEM
+
+```{r}
+subdata <- data[c('pc1', 'Area','Noon_Shade', 'Distance_to_Nearest','Aall', 'Pall', 'Hall')]
+covdata <- cov(subdata)
+
+```
+
+
+### covariance pattern between the three species
+
+```{r}
+spp <- data[c('Aall', 'Pall', 'Hall')]
+cor(spp)
+```
+
+
+### Alternative SEM 1: reverse the H --> P link
+
+The reversed link P --> H was not significant (p = 0.099).The overall model would still pass (p = 0.16) but the p value was lower compare to the model with H --> P link.
+
+```{r}
+model0E <- specifyModel(file="./model/mod0E.txt", endog.variances=TRUE)
+semHerb <- sem(model0E, covdata, N=38, data)
+
+summary(semHerb)
+```
+
+
+## Alternative SEM 2: no species interaction
+
+Model with no species interaction term would still pass to be acceptable (p = 0.12).
+But AIC and Chi-square both suggest the model with (H --> P) link is prefered. 
+
+```{r}
+model0F <- specifyModel(file="./model/mod0F.txt", endog.variances=TRUE)
+semHerb <- sem(model0F, covdata, N=38, data)
+
+summary(semHerb)
+```

@@ -4,7 +4,7 @@ TabA= readtable('./data/TabA.txt', 'Delimiter', ' ');
 TabP = readtable('./data/TabP.txt', 'Delimiter', ' ');
 TabH= readtable('./data/TabH.txt', 'Delimiter', ' ');
 %% treatment
-comset =  [0 0; 0 1; 0 2; 0 3; 1 0; 2 0; 3 0 ]; % combination set, each row correspond to catnames
+comset =  [0 0; 1 0; 2 0; 3 0; 0 1; 0 2; 0 3 ]; % combination set, each row correspond to catnames
 valset = comset(:, 1) * 10 + comset(:, 2); % value set, correspond to catnames
 catnames = {'control', 'con_A', 'con_P', 'con_H', 'delay_A', 'delay_P', 'delay_H'};
 
