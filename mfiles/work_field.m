@@ -21,10 +21,10 @@ for F = 1:length(Frames)
 end
 toc
 figure
-txt.title ={ 'Numeric Interaction', 'Aphid --> Paria'};
+txt.title ={ 'Numeric Interaction', 'Uroleucon --> Paria'};
 myplot_CI(AonB, ciAonB, midAonB,4, txt)
 figure
-txt.title ={ 'Numeric Interaction', 'Paria --> Aphid'};
+txt.title ={ 'Numeric Interaction', 'Paria --> Uroleucon'};
 myplot_CI(BonA, ciBonA, midBonA,4, txt)
 %%
 clear AonB ciAonB midAonB clear nullAP
@@ -72,10 +72,10 @@ for F = 1:length(Frames)
 end
 toc
 figure
-txt.title ={ 'Numeric Interaction', 'Aphid --> Hesperotettix'};
+txt.title ={ 'Numeric Interaction', 'Uroleucon --> Hesperotettix'};
 myplot_CI(AonB, ciAonB, midAonB,4, txt)
 figure
-txt.title ={ 'Numeric Interaction', 'Hesperotettix --> Aphid'};
+txt.title ={ 'Numeric Interaction', 'Hesperotettix --> Uroleucon'};
 myplot_CI(BonA, ciBonA, midBonA,4, txt)
 %%
 clear AonB ciAonB midAonB nullAH
@@ -103,7 +103,7 @@ for F = 1:length(Frames)
 end
 toc
 figure
-    txt.title ={ 'Numeric Interaction', 'Aphid --> Aphid'};
+    txt.title ={ 'Numeric Interaction', 'Uroleucon --> Uroleucon'};
     myplot_CI(AonA, ciAonA, midAonA,4, txt)
 figure
     txt.title ={ 'Numeric Interaction', 'Paria --> Paria'};

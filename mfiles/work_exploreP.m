@@ -1,7 +1,6 @@
 clear;clc
 % laptop
-cd 'C:\Users\ASUS\Dropbox\PhD_projects\herbivore_SG_Iva'
-addpath 'C:\Users\ASUS\Dropbox\DataCoding\MATLAB\utility_wtl\Utility_stat'
+
 %%
 %TabA= readtable('./data/TabA.txt','Delimiter',' ');
 TabP= readtable('./data/TabP.txt','Delimiter',' ');
