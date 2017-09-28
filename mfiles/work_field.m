@@ -2,13 +2,26 @@
 % (re-)download the data from LTER partal
 clear;clc
 script_compilefielddata
-
-%% numeric interaction over time
+%%
+mystyle = [];
+ mystyle.datafacecolor = [0.6    0.6   0.6];% mycolor(5,:);
+  mystyle.datawidth = 2;
+% mystyle.sigcolor = [0.8000    0.2000    0.2000];% 
+  mystyle.sigfacecolor = [0    0   0];% = mycolor(2,:);
+ mystyle.limcolor =  [0.6    0.6   0.6];
+ mystyle.limwidth = 5;
+ mystyle.midmarker = 'd';
+ mystyle.midcolor =  [0.6    0.6   0.6];
+  mystyle.midsize = 1 ;
+  txt=[];
 Frames = 2:19;
-txt=[];
+ temp = num2cellstr((Frames - 1)* 3);
+temp(2:2:end) = {''};
+%% numeric interaction over time
 
-txt.xmark = num2cellstr((Frames - 1)* 3);
-txt.xlabel = 'time lag (day)';
+
+%txt.xlabel = 'time lag (day)';
+ txt.xmark = temp;
 tic 
 for F = 1:length(Frames)
      nullAP = numInteraction_bootstrap(matA, matP, 10000,1, Frames(F) );
@@ -21,20 +34,17 @@ for F = 1:length(Frames)
 end
 toc
 figure
-txt.title ={ 'Numeric Interaction', 'Uroleucon --> Paria'};
-myplot_CI(AonB, ciAonB, midAonB,4, txt)
+txt.title ={ 'Uroleucon --> Paria'};
+myplot_CI(AonB, ciAonB, midAonB,4, txt, mystyle)
 figure
-txt.title ={ 'Numeric Interaction', 'Paria --> Uroleucon'};
-myplot_CI(BonA, ciBonA, midBonA,4, txt)
+txt.title ={ 'Paria --> Uroleucon'};
+myplot_CI(BonA, ciBonA, midBonA,4, txt, mystyle)
 %%
 clear AonB ciAonB midAonB clear nullAP
 
-%% numeric interaction over time PH
-Frames = 2:19;
-txt=[];
 
-txt.xmark = num2cellstr((Frames - 1)* 3);
-txt.xlabel = 'time lag (day)';
+%% numeric interaction over time PH
+
 tic 
 for F = 1:length(Frames)
      nullPH = numInteraction_bootstrap(matP, matH, 10000,1, Frames(F) );
@@ -47,19 +57,15 @@ for F = 1:length(Frames)
 end
 toc
 figure
-txt.title ={ 'Numeric Interaction', 'Paria --> Hesperotettix'};
-myplot_CI(AonB, ciAonB, midAonB,4, txt)
+txt.title ={  'Paria --> Hesperotettix'};
+myplot_CI(AonB, ciAonB, midAonB,4, txt, mystyle)
 figure
-txt.title ={ 'Numeric Interaction', 'Hesperotettix --> Paria'};
-myplot_CI(BonA, ciBonA, midBonA,4, txt)
+txt.title ={  'Hesperotettix --> Paria'};
+myplot_CI(BonA, ciBonA, midBonA,4, txt, mystyle)
 %%
 clear AonB ciAonB midAonB nullPH
 %% numeric interaction over time PH
-Frames = 2:19;
-txt=[];
 
-txt.xmark = num2cellstr((Frames - 1)* 3);
-txt.xlabel = 'time lag (day)';
 tic 
 for F = 1:length(Frames)
      nullAH = numInteraction_bootstrap(matA, matH, 10000,1, Frames(F) );
@@ -72,20 +78,16 @@ for F = 1:length(Frames)
 end
 toc
 figure
-txt.title ={ 'Numeric Interaction', 'Uroleucon --> Hesperotettix'};
-myplot_CI(AonB, ciAonB, midAonB,4, txt)
+txt.title ={  'Uroleucon --> Hesperotettix'};
+myplot_CI(AonB, ciAonB, midAonB,4, txt, mystyle)
 figure
-txt.title ={ 'Numeric Interaction', 'Hesperotettix --> Uroleucon'};
-myplot_CI(BonA, ciBonA, midBonA,4, txt)
+txt.title ={ 'Hesperotettix --> Uroleucon'};
+myplot_CI(BonA, ciBonA, midBonA,4, txt, mystyle)
 %%
 clear AonB ciAonB midAonB nullAH
 %% effect on itself
 %% numeric interaction over time PH
-Frames = 2:19;
-txt=[];
 
-txt.xmark = num2cellstr((Frames - 1)* 3);
-txt.xlabel = 'time lag (day)';
 tic 
 for F = 1:length(Frames)
      nullAA = numInteraction_bootstrap(matA, matA, 10000,1, Frames(F) );
@@ -103,13 +105,13 @@ for F = 1:length(Frames)
 end
 toc
 figure
-    txt.title ={ 'Numeric Interaction', 'Uroleucon --> Uroleucon'};
-    myplot_CI(AonA, ciAonA, midAonA,4, txt)
+    txt.title ={ 'Uroleucon --> Uroleucon'};
+    myplot_CI(AonA, ciAonA, midAonA,4, txt, mystyle)
 figure
-    txt.title ={ 'Numeric Interaction', 'Paria --> Paria'};
-    myplot_CI(PonP, ciPonP, midPonP,4, txt)
+    txt.title ={ 'Paria --> Paria'};
+    myplot_CI(PonP, ciPonP, midPonP,4, txt, mystyle)
 figure
-    txt.title ={ 'Numeric Interaction', 'Hesperotettix --> Hesperotettix'};
-    myplot_CI(HonH, ciHonH, midHonH,4, txt)
+    txt.title ={  'Hesperotettix --> Hesperotettix'};
+    myplot_CI(HonH, ciHonH, midHonH,4, txt, mystyle)
 %%
 clear AonA ciAonA midAonA nullAA PonP ciPonP midPonP nullPP HonH ciHonH midHonH nullHH

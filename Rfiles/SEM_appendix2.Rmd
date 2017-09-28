@@ -1,0 +1,85 @@
+---
+title: "R Notebook"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+## Load data and package
+
+
+```{r}
+rm(list = ls())
+source('script_loaddata.R')
+
+library(sem)
+library(polycor)
+```
+
+#### Preparing covariance matrix for SEM
+
+* Aall: mean population of _Uroleucon_ (aphid)
+* Pall: mean population of _Paria_ (beetle)
+* Hall: mean population of _Hesperotettix_ (grasshopper)
+
+```{r}
+subdata <- data[c('PC1', 'Distance_to_Nearest',  'Area','Aall', 'Pall', 'Hall')]
+covdata <- cov(subdata)
+```
+
+## Correlation pattern between the three species
+
+_Uroleucon_ negatively correlates with _Paria_. From the SEM, we see the negative correlation was most likely the result of their different response to shading level.
+
+_Paria_ negatively correlates with _Hesperotettix_. Comparing the selected SEM with the alternative SEM 1 below, we can infer that this is partially caused by the negative effect of _Hesperotettix_ on _Paria_. (Rather than the negative effect of _Paria_ on _Hesperotettix_.)
+
+```{r}
+spp <- data[c('Aall', 'Pall', 'Hall')]
+cor(spp)
+```
+
+
+
+## SEM result: 
+
+The original model output for the model presented in **Figure 4**.
+
+This model is selected among other models for lowest AIC.
+
+```{r}
+model2 <- specifyModel(file="./model/mod2A.txt", endog.variances=TRUE)
+semHerb <- sem(model2, covdata, N=38, data)
+
+summary(semHerb)
+```
+
+
+## Alternative SEMs
+
+### Alternative SEM 1: reverse the H --> P link
+
+The reversed link P --> H was less significant (p = 0.10).
+
+The overall model would still pass (p = 0.51) but the p value was lower compare to the model with H --> P link.
+
+```{r}
+model2B <- specifyModel(file="./model/mod2B.txt", endog.variances=TRUE)
+semHerb <- sem(model2B, covdata, N=38, data)
+
+summary(semHerb)
+```
+
+
+### Alternative SEM 2: no species interaction
+
+Model with no species interaction term would still pass to be acceptable (p = 0.36).
+
+But AIC and Chi-square both suggest the model with (H --> P) link is prefered. 
+
+```{r}
+model20 <- specifyModel(file="./model/mod20.txt", endog.variances=TRUE)
+semHerb <- sem(model20, covdata, N=38, data)
+
+summary(semHerb)
+```
+
+

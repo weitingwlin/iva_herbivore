@@ -14,8 +14,11 @@
 %%
     [coeff, score,latent] = pca(M5(:, 7:10));
     pc1 = score(:, 1);
+%%
+    [coeff, score,latent] = pca(M5(:, 6:10));
+    PC1 = score(:, 1);
 %% write to table
-    tblP = array2table([M5(:,[3 5 6])  pc1], 'variablenames', {M3varname{[3 5 6]}, 'pc1'});
+    tblP = array2table([M5(:,[3 5 6])  pc1 PC1], 'variablenames', {M3varname{[3 5 6]}, 'pc1', 'PC1'});
 %%
     clear T2 M4 M3 tnames
 %%

@@ -2,16 +2,12 @@ clear;clc
 % laptop
 
 %%
-%TabA= readtable('./data/TabA.txt','Delimiter',' ');
+
 TabP= readtable('./data/TabP.txt','Delimiter',' ');
-%TabH= readtable('./data/TabH.txt','Delimiter',' ');
-%TabPlant= readtable('./data/TabPlant.txt','Delimiter',' ');
+
 %%
  mycorrplot_1(TabP(:,[4:8 10:13]))
-% mycorrplot_1(TabA(:,[4 7 8 10]))
-% mycorrplot_1(TabH(:,[4 6 7 8 9])) % almost sig. effect of toughness
-%           mdl = fitlm(TabH,'dwH~tou0')
-% resid_dwH = TabH.dwH-predict(mdl,TabH);
+
 
  %% Aphid
  % block residual

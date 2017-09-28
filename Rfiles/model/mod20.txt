@@ -6,7 +6,6 @@ Area -> Hall, lam3, NA
 PC1 -> Aall, lam4, NA
 PC1 -> Pall, lam5, NA
 
-Pall -> Hall, lam23, NA
 
 
 
