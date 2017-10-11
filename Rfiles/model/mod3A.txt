@@ -1,0 +1,24 @@
+
+Area -> Aall, lam1, NA
+
+Area -> Hall, lam3, NA
+
+PC1 -> Aall, lam4, NA
+PC1 -> Pall, lam5, NA
+
+Hall -> Pall, lam32, NA
+
+Area -> Lall, lam10, NA
+PC1 -> Lall, lam11, NA
+Aall -> Hall, lam13, NA
+Lall -> Aall, lam41, NA
+
+Area <-> PC1, theta1, NA
+Area <-> Distance_to_Nearest, theta2, NA
+Distance_to_Nearest <-> PC1, theta3, NA
+
+
+Area <-> Area, theta01, NA
+
+PC1 <-> PC1, theta02, NA
+Distance_to_Nearest <-> Distance_to_Nearest , theta03, NA

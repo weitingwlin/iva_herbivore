@@ -2,7 +2,7 @@
 %  setupatlab
 %  setupathome
 %%
-TabA= readtable('./data/TabA.txt','Delimiter',' ');
+TabA= readtable([datapath 'TabA.txt'],'Delimiter',' ');
 
 %%
 

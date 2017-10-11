@@ -5,8 +5,10 @@
 
 %%% set working directory and path
 if strncmp(strout, 'weitingdeMacBook-Air.local',12)
-    cd '/Users/weitinglin/Dropbox/PhD_projects/herbivore_SG_Iva'
+    cd '/Users/weitinglin/Dropbox/PhD_projects/herbivore_SG_Iva/mfiles'
     addpath '/Users/weitinglin/Dropbox/DataCoding/utility_wtl/mfiles'
+    rdatapath =  '/Users/weitinglin/Dropbox/PhD_projects/herbivore_SG_Iva/Rfiles/data';
+    datapath = '/Users/weitinglin/Dropbox/PhD_projects/herbivore_SG_Iva/mfiles/data/';
 end
 
 % PC; home
@@ -14,6 +16,7 @@ if strncmp(strout, 'wlin_pc',5)
         cd  'C:\Users\Wei-Ting\Dropbox\PhD_projects\herbivore_SG_Iva\mfiles'
         addpath 'C:\Users\Wei-Ting\Dropbox\DataCoding\utility_wtl\mfiles'
         rdatapath =  'C:\Users\Wei-Ting\Dropbox\PhD_projects\herbivore_SG_Iva\Rfiles\data';
+        datapath =  'C:\Users\Wei-Ting\Dropbox\PhD_projects\herbivore_SG_Iva\mfiles\data';
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

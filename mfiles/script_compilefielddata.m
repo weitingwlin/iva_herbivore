@@ -11,12 +11,17 @@ patch_ind = unique(M2, 'rows');
 indP = find(strcmp(insectnames,  'Paria'  ));
 indA =  find(strcmp(insectnames,  'Uroleucon'   ));
 indH =  find(strcmp(insectnames,  'Hesperotettix'  ));
+indL =  [11 12 13 16]; % three spceis of adult and larva
+%  insectnames([11 12 13 16]) 
+indS = find(strcmp(insectnames,  'Spider'  ));
 %% compile data to matrix
 % each row is TS of a patch
 % each column is snapshot of a time
 matA = zeros(38,19);
 matP = zeros(38,19);
 matH = zeros(38,19);
+matL = zeros(38,19);
+matS = zeros(38,19);
 D = string(zeros(38,19));
 for p=1:38
         patch = patch_ind(p,:); % [ site, patch] 
@@ -25,6 +30,8 @@ for p=1:38
         matA(p,1:19) = M(temp1(1:19), indA);
         matP(p,1:19) = M(temp1(1:19), indP);% 
         matH(p,1:19) = M(temp1(1:19), indH);% 
+        matL(p,1:19) = sum( M(temp1(1:19), indL), 2);% 
+        matS(p,1:19) = M(temp1(1:19), indS);% 
 end
 %%
 clear temp1 patch p T tname

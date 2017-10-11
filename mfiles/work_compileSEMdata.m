@@ -1,3 +1,7 @@
+%%
+clear; clc
+work_setup % for the pathes
+script_compilefielddata
 %% read, compile patch variables
     M3 = csvread('data/patchdata2014.csv', 5, 6); % insect count data
     T2 = readtable('data/patchdata2014.csv');
@@ -12,10 +16,10 @@
         M5(p, :) = M3(temp1, :);
     end
 %%
-    [coeff, score,latent] = pca(M5(:, 7:10));
+    [coeff, score, latent, t2, perc_exp] = pca(M5(:, 7:10));
     pc1 = score(:, 1);
 %%
-    [coeff, score,latent] = pca(M5(:, 6:10));
+    [coeff, score, latent, t2, perc_exp] = pca(M5(:, 6:10));
     PC1 = score(:, 1);
 %% write to table
     tblP = array2table([M5(:,[3 5 6])  pc1 PC1], 'variablenames', {M3varname{[3 5 6]}, 'pc1', 'PC1'});
@@ -23,17 +27,18 @@
     clear T2 M4 M3 tnames
 %%
     writetable(tblP, [ rdatapath '/Env.csv']); % taxa data, by plant (sample, beat)
-%%
-script_compilefielddata
+
 %%
 Aall = mean(matA, 2);
 Pall = mean(matP, 2);
 Hall = mean(matH, 2);
-Ajun = mean(matA(:,1:9), 2);
-Ajul = mean(matA(:,11:end), 2);
-Pjun = mean(matP(:,1:9), 2);
-Pjul = mean(matP(:,11:end), 2);
-Hjun = mean(matH(:,1:9), 2);
-Hjul = mean(matH(:,11:end), 2);
-tblAPH = table(Aall,Pall, Hall, Ajun, Ajul, Pjun, Pjul, Hjun, Hjul);
-writetable(tblAPH, [ rdatapath '/APH.csv']); % taxa data, by plant (sample, beat)
+Sall = mean(matS, 2);
+Lall = mean(matL, 2);
+%Ajun = mean(matA(:,1:9), 2);
+%Ajul = mean(matA(:,11:end), 2);
+%Pjun = mean(matP(:,1:9), 2);
+%Pjul = mean(matP(:,11:end), 2);
+%Hjun = mean(matH(:,1:9), 2);
+%Hjul = mean(matH(:,11:end), 2);
+tblAPHSL = table(Aall,Pall, Hall, Sall, Lall);
+writetable(tblAPHSL, [ rdatapath '/APH.csv']); % taxa data, by plant (sample, beat)

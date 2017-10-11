@@ -1,6 +1,7 @@
 % script_downloadfielddata
 % (re-)download the data from LTER partal
 clear;clc
+work_setup % for the pathes
 script_compilefielddata
 %%
 mystyle = [];
@@ -115,3 +116,4 @@ figure
     myplot_CI(HonH, ciHonH, midHonH,4, txt, mystyle)
 %%
 clear AonA ciAonA midAonA nullAA PonP ciPonP midPonP nullPP HonH ciHonH midHonH nullHH
+
