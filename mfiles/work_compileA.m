@@ -32,6 +32,7 @@ mw = NaN(54,1); % mean weight of competitor
 
 % Treatment code
     treatmentA =[ 2,1,1;  2,1,2;  2,1,3, ;  1,1,1; 1, 1,2; 1,1,3;  2,1,1;  2,2,1;  2,3,1]; % column: [exp, sp1, sp2]
+    % the first 3 rows represent low density control
 %% Grab data and filling out data sheet
 for b = 1:6 % block
     for tr = 1:9 % treatment
@@ -53,12 +54,12 @@ for b = 1:6 % block
         if isempty(ind1)+isempty(ind2)==0
         % calculation
         blc(rowid) = b;
-                temp = sort(data(ind0,8:17));      % chl data D1 sorted
+                temp = sort(data(ind0,8:17));      % chl data D1 sorted (10 measurements)
         chl0(rowid) = mean(temp);
        
         chlin0(rowid) = mean(inlier(temp));       % remove two extream data
         L0(rowid) = data(ind0,6);                    % number of leaves
-        tou0(rowid) = mean(data(ind0,18:20)); % mean leave toughness       
+        tou0(rowid) = mean(data(ind0,18:20)); % mean leave toughness  (3 measurements)      
         if tr==4 % the high-density experiment
                  dAphid(rowid) = (data(ind2,23)-60)/60; % change of number of Aphid in ratio
         else
@@ -80,9 +81,9 @@ for b = 1:6 % block
          end
          if tr==8% 21 for paria damage
             dmg1 = data(ind1,21);            % dmg1==0   
-            mdamage(rowid) = dmg1;% mean damage
+            mdamage(rowid) = dmg1;%damage
          end
-          if tr==6% 21 for Hesperotettix damage
+          if tr==6% 22 for Hesperotettix damage
             dmg2 = data(ind2,22);            % dmg1==0   
             mdamage(rowid) = dmg2/2;% mean damage
               if  ~isempty(find(~isnan(temp41-temp31)))
@@ -90,9 +91,9 @@ for b = 1:6 % block
                                % for Hesperotettix, I use geometric mean of growthrate of each grasshopper
              end
          end
-         if tr==9% 21 for  Hesperotettix damage
+         if tr==9% 22 for  Hesperotettix damage
             dmg1 = data(ind1,22);            % dmg1==0   
-            mdamage(rowid) = dmg1;% mean damage
+            mdamage(rowid) = dmg1;%  damage
          end
          
          

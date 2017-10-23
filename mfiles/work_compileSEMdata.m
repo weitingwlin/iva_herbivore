@@ -16,13 +16,15 @@ script_compilefielddata
         M5(p, :) = M3(temp1, :);
     end
 %%
-    [coeff, score, latent, t2, perc_exp] = pca(M5(:, 7:10));
-    pc1 = score(:, 1);
+  %  [coeff, score, latent, t2, perc_exp] = pca(M5(:, 7:10));
+  %  pc1 = score(:, 1);
 %%
     [coeff, score, latent, t2, perc_exp] = pca(M5(:, 6:10));
     PC1 = score(:, 1);
+    M3varname(6:10)
 %% write to table
-    tblP = array2table([M5(:,[3 5 6])  pc1 PC1], 'variablenames', {M3varname{[3 5 6]}, 'pc1', 'PC1'});
+    tblP = array2table([M5(:,[3 5 ])  PC1], 'variablenames', {'Area', 'DtN','PC1'});
+    % M3varname{[3 5 ]}
 %%
     clear T2 M4 M3 tnames
 %%
@@ -32,13 +34,14 @@ script_compilefielddata
 Aall = mean(matA, 2);
 Pall = mean(matP, 2);
 Hall = mean(matH, 2);
-Sall = mean(matS, 2);
-Lall = mean(matL, 2);
+%Sall = mean(matS, 2); % spider
+%Lall = mean(matL, 2); % ladybeetle
+
 %Ajun = mean(matA(:,1:9), 2);
 %Ajul = mean(matA(:,11:end), 2);
 %Pjun = mean(matP(:,1:9), 2);
 %Pjul = mean(matP(:,11:end), 2);
 %Hjun = mean(matH(:,1:9), 2);
 %Hjul = mean(matH(:,11:end), 2);
-tblAPHSL = table(Aall,Pall, Hall, Sall, Lall);
-writetable(tblAPHSL, [ rdatapath '/APH.csv']); % taxa data, by plant (sample, beat)
+tblAPH = table(Aall,Pall, Hall);
+writetable(tblAPH, [ rdatapath '/APH.csv']); % taxa data, by plant (sample, beat)

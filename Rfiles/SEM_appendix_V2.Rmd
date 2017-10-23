@@ -1,0 +1,153 @@
+---
+title: "R Notebook"
+output:
+  html_document: default
+  html_notebook: default
+  pdf_document: default
+---
+## Load data and package
+
+
+```{r}
+rm(list = ls())
+source('script_loaddata.R')
+
+library(sem)
+library(polycor)
+```
+
+#### Preparing covariance matrix for SEM
+
+* Aall: mean population of _Uroleucon_ (aphid)
+* Pall: mean population of _Paria_ (beetle)
+* Hall: mean population of _Hesperotettix_ (grasshopper)
+
+```{r}
+cordata <- cor(data)
+```
+
+## Correlation pattern between the three species
+
+_Uroleucon_ negatively correlates with _Paria_. From the SEM, we see the negative correlation was most likely the result of their different response to shading level.
+
+_Paria_ negatively correlates with _Hesperotettix_. Comparing the selected SEM with the alternative SEM 1 below, we can infer that this is partially caused by the negative effect of _Hesperotettix_ on _Paria_. (Rather than the negative effect of _Paria_ on _Hesperotettix_.)
+
+```{r}
+spp <- data[c('Aall', 'Pall', 'Hall')]
+cor(spp)
+```
+
+
+
+## SEM result: 
+
+The original model output for the model presented in **Figure 4**.
+
+This model is selected among other models for lowest AIC.
+
+```{r}
+model0 <- specifyModel(file="./model/mod0.txt", endog.variances=TRUE)
+semHerb <- sem(model0, cordata, N=38, data)
+
+summary(semHerb)
+```
+
+## Trim model0: remove links with p > 0.1
+
+```{r}
+model0A <- specifyModel(file="./model/mod0A.txt", endog.variances=TRUE)
+semHerb <- sem(model0A, cordata, N=38, data)
+
+S <- summary(semHerb)
+S 
+AIC0 <- S$AIC
+
+```
+
+## Add species interaction terms
+1. Add one link each time
+
+### Uroleucon -> Paria
+```{r}
+model1_UP <- specifyModel(file="./model/mod1_UP.txt", endog.variances=TRUE)
+semHerb <- sem(model1_UP, cordata, N=38, data)
+S <- summary(semHerb)
+
+paste('Uroleucon -> Paria (',
+      as.character(round(S$coeff$Estimate[1], digits = 2)), ')')
+paste('AIC :', as.character(round(S$AIC, digits = 2)), 
+      '(change:', as.character(round(S$AIC - AIC0, digits = 2)), ')')
+paste('p =', as.character(round(S$coeff$`Pr(>|z|)`[1], digits = 2)))
+```
+
+### Paria -> Uroleucon 
+
+```{r}
+model1_PU <- specifyModel(file="./model/mod1_PU.txt", endog.variances=TRUE)
+semHerb <- sem(model1_PU, cordata, N=38, data)
+S <- summary(semHerb)
+
+paste('Paria -> Uroleucon (',
+      as.character(round(S$coeff$Estimate[1], digits = 2)), ')')
+paste('AIC :', as.character(round(S$AIC, digits = 2)), 
+      '(change:', as.character(round(S$AIC - AIC0, digits = 2)), ')')
+paste('p =', as.character(round(S$coeff$`Pr(>|z|)`[1], digits = 2)))
+```
+
+### Uroleucon -> Hesperotettix
+```{r}
+model1_UH <- specifyModel(file="./model/mod1_UH.txt", endog.variances=TRUE)
+semHerb <- sem(model1_UH, cordata, N=38, data)
+S <- summary(semHerb)
+
+paste('Uroleucon -> Hesperotettix (',
+      as.character(round(S$coeff$Estimate[1], digits = 2)), ')')
+paste('AIC :', as.character(round(S$AIC, digits = 2)), 
+      '(change:', as.character(round(S$AIC - AIC0, digits = 2)), ')')
+paste('p =', as.character(round(S$coeff$`Pr(>|z|)`[1], digits = 2)))
+```
+
+### Hesperotettix -> Uroleucon 
+```{r}
+model1_HU <- specifyModel(file="./model/mod1_HU.txt", endog.variances=TRUE)
+semHerb <- sem(model1_HU, cordata, N=38, data)
+S <- summary(semHerb)
+
+paste('Hesperotettix -> Uroleucon (',
+      as.character(round(S$coeff$Estimate[1], digits = 2)), ')')
+paste('AIC :', as.character(round(S$AIC, digits = 2)), 
+      '(change:', as.character(round(S$AIC - AIC0, digits = 2)), ')')
+paste('p =', as.character(round(S$coeff$`Pr(>|z|)`[1], digits = 2)))
+```
+
+### Paria -> Hesperotettix
+```{r}
+model1_PH <- specifyModel(file="./model/mod1_PH.txt", endog.variances=TRUE)
+semHerb <- sem(model1_PH, cordata, N=38, data)
+S <- summary(semHerb)
+
+paste('Paria -> Hesperotettix (',
+      as.character(round(S$coeff$Estimate[1], digits = 2)), ')')
+paste('AIC :', as.character(round(S$AIC, digits = 2)), 
+      '(change:', as.character(round(S$AIC - AIC0, digits = 2)), ')')
+paste('p =', as.character(round(S$coeff$`Pr(>|z|)`[1], digits = 2)))
+```
+
+### Hesperotettix -> Paria 
+```{r}
+model1_HP <- specifyModel(file="./model/mod1_HP.txt", endog.variances=TRUE)
+semHerb <- sem(model1_HP, cordata, N=38, data)
+S <- summary(semHerb)
+
+paste('Hesperotettix -> Paria  (',
+      as.character(round(S$coeff$Estimate[1], digits = 2)), ')')
+paste('AIC :', as.character(round(S$AIC, digits = 2)), 
+      '(change:', as.character(round(S$AIC - AIC0, digits = 2)), ')')
+paste('p =', as.character(round(S$coeff$`Pr(>|z|)`[1], digits = 2)))
+```
+
+## Final model
+
+```{r}
+S
+```

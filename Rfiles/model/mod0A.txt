@@ -1,25 +1,17 @@
 
 
-pc1 -> Aall, lam4A, NA
-
-Area -> Aall, lam5A, NA
-
-Area -> Hall, lam5H, NA
-
-Distance_to_Nearest -> Hall, lam6H, NA
-Noon_Shade -> Aall, lam7A, NA
-
-Noon_Shade -> Hall, lam7H, NA
+PC1 -> Aall, lam4C, NA
+PC1 -> Pall, lam5C, NA
 
 
+Area -> Aall, lam4A, NA
+Area -> Hall, lam6A, NA
 
 
-Area <-> Noon_Shade, theta1, NA
-Distance_to_Nearest <-> pc1, theta2, NA
-Noon_Shade <-> pc1 , theta3, NA
-Noon_Shade  <-> Distance_to_Nearest, theta4, NA
+Area <-> DtN, thetaAB, NA
+DtN <-> PC1, thetaBC, NA
+Area <-> PC1, thetaAC, NA
 
-Area <-> Area, theta01, NA
-Noon_Shade <-> Noon_Shade , theta02, NA
-Distance_to_Nearest <-> Distance_to_Nearest, theta03, NA
-pc1 <-> pc1, theta04, NA
+Area <-> Area, thetaA, NA
+DtN <-> DtN, thetaB, NA
+PC1 <-> PC1, thetaC, NA

@@ -1,15 +1,10 @@
-
+Pall -> Hall, lamPH, NA
 
 PC1 -> Aall, lam4C, NA
 PC1 -> Pall, lam5C, NA
-PC1 -> Hall, lam6C, NA
 
-DtN -> Aall, lam4B, NA
-DtN -> Pall, lam5B, NA
-DtN -> Hall, lam6B, NA
 
 Area -> Aall, lam4A, NA
-Area -> Pall, lam5A, NA
 Area -> Hall, lam6A, NA
 
 

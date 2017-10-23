@@ -1,11 +1,11 @@
 %% GLM: effect of inter- and intra species competition on performance 
-%  1. do one-way anova for performance with blocks
-%  2. use the residual from step 1. as response, to do the analysis
-%  3. do step 1 ~ 2 for cooccurrence and delayed competition
+%  1. Add block into analysis 
+%  2. for cooccurrence and delayed competition
 % 
 % 2017/10/23
 %% Set up: run one script from below
 clear; clc
+work_setup
 %% load data
   TabA= readtable([datapath 'TabA.txt'],'Delimiter',' ');
     TabP= readtable([datapath 'TabP.txt'],'Delimiter',' ');
@@ -21,8 +21,10 @@ clear; clc
     subA.loadH(subA.compete == 3) = subA.mdamage( subA.compete == 3); % mean damage of competitor No.3 (i.e. Hesperotettix)
     subA.blccat = categorical(subA.blc); % change the block data into categorical, so it will be hadled properly in the matlab glm function
     % 1-way-ANOVA with block
-            [p,tbl,stats1] = anovan(subA.dAphid,{subA.blc});
-    subA.blcresid = stats1. resid; % save block residual as a new variable
+     subA.perform = subA.dAphid;
+         %   [p,tbl,stats1] = anovan(subA.dAphid,{subA.blc});
+   % subA.blcresid = stats1. resid; % save block residual as a new variable
+   
 %%% Paria as responder   
     subP = TabP(TabP.pretreat == 0,:);
     subP.loadP = subP.compete == 2;
@@ -32,8 +34,9 @@ clear; clc
     subP.loadH(subP.compete == 3) = subP.mdamageH(subP.compete == 3);
     subP.blccat = categorical(subP.blc);
     % 1-way-ANOVA with block
-            [p,tbl,stats1] = anovan(subP.ddamage,{subP.blc});
-     subP.blcresid= stats1. resid;  % save block residual as a new variable
+    subP.perform = subP.ddamage;
+    %        [p,tbl,stats1] = anovan(subP.ddamage,{subP.blc});
+  %   subP.blcresid= stats1. resid;  % save block residual as a new variable
 %%% Hespeprotettix as responder
     subH = TabH(TabH.pretreat == 0,:);
     subH.loadH = subH.compete == 3; %  load of intra-species competitor is a factor
@@ -43,10 +46,11 @@ clear; clc
     subH.loadP(subH.compete == 2) = subH.mdamageP(subH.compete == 2);
     subH.blccat = categorical(subH.blc);
     % 1-way-ANOVA with block
-            [p,tbl,stats1] = anovan(subH.ddamage,{subH.blc});
-     subH.blcresid=  stats1. resid;
+     subH.perform = subH.ddamage;
+     %       [p,tbl,stats1] = anovan(subH.ddamage,{subH.blc});
+   %  subH.blcresid=  stats1. resid;
 %% cooccurrence competition: GLM analysis
-  modelspec = 'blcresid~  loadA + loadP + loadH'; 
+  modelspec = 'perform~  loadA + loadP + loadH + blccat'; 
   mdlA = fitglm(subA,modelspec);
   mdlP = fitglm(subP,modelspec);
   mdlH = fitglm(subH,modelspec);
@@ -61,8 +65,9 @@ clear; clc
     subdA.loadH(subdA.pretreat == 3) = subdA.mdamage( subdA.pretreat == 3); % mean damage of competitor No.3 (i.e. Hesperotettix)
     subdA.blccat = categorical(subdA.blc); % change the block data into categorical, so it will be hadled properly in the matlab glm function
     % 1-way-ANOVA with block
-            [p,tbl,stats1] = anovan(subdA.dAphid,{subdA.blc});
-    subdA.blcresid = stats1. resid'; % save block residual as a new variable
+        subdA.perform = subdA.dAphid;
+         %   [p,tbl,stats1] = anovan(subdA.dAphid,{subdA.blc});
+   % subdA.blcresid = stats1. resid'; % save block residual as a new variable
 %%% Paria as responder   
     subdP = TabP(TabP.compete== 0,:);
     subdP.loadP = subdP.pretreat == 2;
@@ -72,8 +77,9 @@ clear; clc
     subdP.loadH(subdP.pretreat  == 3) = subdP.mdamageH(subdP.pretreat  == 3);
     subdP.blccat = categorical(subdP.blc);
     % 1-way-ANOVA with block
-            [p,tbl,stats1] = anovan(subdP.ddamage,{subdP.blc});
-     subdP.blcresid= stats1. resid';  % save block residual as a new variable
+     subdP.perform = subdP.ddamage;
+       %     [p,tbl,stats1] = anovan(subdP.ddamage,{subdP.blc});
+   %  subdP.blcresid= stats1. resid';  % save block residual as a new variable
 %%% Hespeprotettix as responder
     subdH = TabH(TabH.compete == 0,:);
     subdH.loadH = subdH.pretreat  == 3; %  load of intra-species competitor is a factor
@@ -83,10 +89,11 @@ clear; clc
     subdH.loadP(subdH.pretreat  == 2) = subdH.mdamageP(subdH.pretreat  == 2);
     subdH.blccat = categorical(subdH.blc);
     % 1-way-ANOVA with block
-            [p,tbl,stats1] = anovan(subdH.ddamage,{subdH.blc});
-     subdH.blcresid=  stats1. resid';  
+         subdH.perform = subdH.ddamage;
+        %    [p,tbl,stats1] = anovan(subdH.ddamage,{subdH.blc});
+  %   subdH.blcresid=  stats1. resid';  
 %% Delayed competition: GLM analysis
-  modelspec = 'blcresid~  loadA + loadP + loadH'; 
+  modelspec = 'perform~  loadA + loadP + loadH + blccat'; 
   mdldA = fitglm(subdA,modelspec);
   mdldP = fitglm(subdP,modelspec);
   mdldH = fitglm(subdH,modelspec);
