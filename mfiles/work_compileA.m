@@ -27,6 +27,9 @@ chlin0 = NaN(54,1);     % mean leaf chlorophyll at D1; two extream data removed
 tou0 = NaN(54,1);     % mean leaf toughness at D1
   % the three above serve as plan quality 
 dAphid = NaN(54,1);  % change in number of aphid 
+rgrAphid =  NaN(54,1); % relative growth rate of aphid ln(final/initial)
+rgr1Aphid =  NaN(54,1);
+rgr2Aphid =  NaN(54,1);
 mdamage = NaN(54,1); % mean damage by competitor
 mw = NaN(54,1); % mean weight of competitor
 
@@ -62,8 +65,14 @@ for b = 1:6 % block
         tou0(rowid) = mean(data(ind0,18:20)); % mean leave toughness  (3 measurements)      
         if tr==4 % the high-density experiment
                  dAphid(rowid) = (data(ind2,23)-60)/60; % change of number of Aphid in ratio
+                 rgrAphid(rowid) = log( (data(ind2, 23))/60  ); %
+                 rgr1Aphid(rowid) = log( (data(ind2, 23) + 2)/60  ); %
+                 rgr2Aphid(rowid) = log( (data(ind2, 23))/60 +1 ); %
         else
                  dAphid(rowid) = (data(ind2,23)-30)/30; % change of number in ratio
+                 rgrAphid(rowid) = log( (data(ind2, 23) )/30); %
+                 rgr1Aphid(rowid) = log( (data(ind2, 23)+1)/30 ); %
+                 rgr2Aphid(rowid) = log( (data(ind2, 23))/30+1); %
         end
         
    % competing bug weight and damage
@@ -103,26 +112,27 @@ for b = 1:6 % block
     end
 end
 %% make table
-           TabAphid = table(blc, pretreat, compete, L0, chl0, chlin0, tou0, mdamage,mw,dAphid);
+           TabAphid = table(blc, pretreat, compete, L0, chl0, chlin0, tou0, mdamage,mw,dAphid, rgr2Aphid);
             Y = nanzscore(log(TabAphid.dAphid+2)); % to achive normality, see "test normality" section
             tabY = table(Y);
     TabA = [TabAphid tabY];
         writetable(TabA,'./data/TabA.txt','Delimiter',' ')
    % clear; clc
    % TabA= readtable('./data/TabA.txt','Delimiter',' ')
-%% test normality
-% hist(TabA.dAphid);kstest(TabA.dAphid) 
-%   hist(Y)
-%   kstest(Y) % test for normality, 0 is good
-%   hist(TabAphid.chlin0)
-%   kstest(nanzscore(TabA.chlin0)) 
-%   kstest(nanzscore(TabA.chl0)) 
-%   kstest(nanzscore(TabA.tou0)) 
-%   kstest(nanzscore(TabA.L0)) 
-%% 
- TabA=TabAphid(:,[1 4:7 9]); % for the convinience of passing through [fitlm]
- mdl = fitlm(TabA)
- resid = TabA.Y-predict(mdl,TabA);
- 
- [p,tbl,stats] = anovan(resid,{TabAphid.pretreat,TabAphid.compete})
-multcompare(stats,'Dimension',2,'CType','hsd')
+
+%% explore normality
+subplot(2,2,1)
+    qqplot(dAphid)
+    title('change in population (ratio)')
+subplot(2,2,2)
+    qqplot(rgrAphid)
+    title('RGR: ln(N2/N1)')
+subplot(2,2,3)
+    qqplot(rgr1Aphid)
+    title('RGR: ln(N2/N1 + 1/30)')
+subplot(2,2,4)
+    qqplot(rgr2Aphid)
+    title('RGR: ln(N2/N1 + 1)')
+
+
+

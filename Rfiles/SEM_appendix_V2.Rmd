@@ -132,6 +132,14 @@ paste('AIC :', as.character(round(S$AIC, digits = 2)),
       '(change:', as.character(round(S$AIC - AIC0, digits = 2)), ')')
 paste('p =', as.character(round(S$coeff$`Pr(>|z|)`[1], digits = 2)))
 ```
+##### Show this alternative model
+
+
+```{r}
+S
+```
+
+
 
 ### Hesperotettix -> Paria 
 ```{r}

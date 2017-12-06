@@ -117,3 +117,12 @@ figure
 %%
 clear AonA ciAonA midAonA nullAA PonP ciPonP midPonP nullPP HonH ciHonH midHonH nullHH
 
+%%
+figure
+p = 9;% 9
+[Hax,H1,H2] =  myplotyy(1:3:19*3, matA(p, :), 1:3:19*3,matP(p, :), 'S', 'S',  2, 1, 1, 4);
+%myplot(1:19, matA(p, :)./100, 'S', 1, 1); hold on
+%myplot(1:19, matP(p, :), 'S', 2, 2);
+%legend('Aphid', 'Leaf beetle')
+
+

@@ -4,7 +4,7 @@
 [stt, strout] =system('hostname');
 
 %%% set working directory and path
-if strncmp(strout, 'weitingdeMacBook-Air.local',12)
+if strncmp(strout, 'weitingde',7)
     cd '/Users/weitinglin/Dropbox/PhD_projects/herbivore_SG_Iva/mfiles'
     addpath '/Users/weitinglin/Dropbox/DataCoding/utility_wtl/mfiles'
     rdatapath =  '/Users/weitinglin/Dropbox/PhD_projects/herbivore_SG_Iva/Rfiles/data/';

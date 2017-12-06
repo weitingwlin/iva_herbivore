@@ -4,8 +4,8 @@
 % _Wei-Ting Lin 2015/9/4_
 clear;clc
 % laptop
-cd 'C:\Users\ASUS\Dropbox\PhD_projects\herbivore_SG_Iva'
-addpath 'C:\Users\ASUS\Dropbox\DataCoding\MATLAB\utility_wtl\Utility_stat'
+%cd 'C:\Users\ASUS\Dropbox\PhD_projects\herbivore_SG_Iva'
+%addpath 'C:\Users\ASUS\Dropbox\DataCoding\MATLAB\utility_wtl\Utility_stat'
 % home
 %     cd 'C:\Users\Wei-Ting\Dropbox\PhD_projects\herbivore_SG_Iva'
 %     addpath 'C:\Users\Wei-Ting\Dropbox\DataCoding\MATLAB\utility_wtl\Utility_plot'

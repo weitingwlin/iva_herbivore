@@ -1,5 +1,8 @@
 %% GLM: effect of inter- and intra species competition on performance 
-
+%  1. Add block into analysis 
+%  2. for cooccurrence and delayed competition
+% 
+% 2017/10/23
 %% Set up: run one script from below
 clear; clc
 work_setup
@@ -44,7 +47,8 @@ work_setup
     subH.block = categorical(subH.blc);
     % 1-way-ANOVA with block
      subH.Y = subH.ddamage;
-
+     %       [p,tbl,stats1] = anovan(subH.ddamage,{subH.blc});
+   %  subH.blcresid=  stats1. resid;
 %% cooccurrence competition: GLM analysis
   modelspec = 'Y~  Uroleucon + Paria + Hesperotettix + block'; 
   mdlA = fitglm(subA,modelspec);
